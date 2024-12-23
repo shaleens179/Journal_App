@@ -1,0 +1,8 @@
+package com.shaleenSB.journalAPP.repo;
+
+import com.shaleenSB.journalAPP.entity.JournalEntry;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface  JournalRepo extends JpaRepository<JournalEntry, Long> {
+}
