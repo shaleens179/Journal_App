@@ -1,0 +1,36 @@
+package com.shaleenSB.journalAPP.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
+
+@Data
+@Entity // Marks this class as a JPA entity
+public class JournalEntry {
+
+    @Id // Marks the field as the primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generates ID values
+    private long id;
+
+    @NonNull
+    private String title;
+
+    private String content;
+
+    private LocalDateTime date;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+
+    private User user;
+
+    // Getters and setters
+
+
+}
