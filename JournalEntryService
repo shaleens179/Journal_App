@@ -1,0 +1,34 @@
+package com.shaleenSB.journalAPP.service;
+
+import com.shaleenSB.journalAPP.entity.JournalEntry;
+import com.shaleenSB.journalAPP.repo.JournalRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
+
+@Component
+public class JournalEntryService {
+
+    @Autowired
+    private JournalRepo journalEntryRepository;
+
+
+    public void saveEntry(JournalEntry journalEntry){
+        journalEntryRepository.save(journalEntry);
+    }
+
+    public List<JournalEntry> getAll(){
+        return journalEntryRepository.findAll();
+    }
+
+    public Optional<JournalEntry> findById(long id){
+        return journalEntryRepository.findById(id);
+    }
+
+     public void deleteById(long id){
+        journalEntryRepository.deleteById(id);
+     }
+
+}
