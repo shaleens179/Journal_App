@@ -1,0 +1,10 @@
+package com.shaleenSB.journalAPP.repo;
+
+import com.shaleenSB.journalAPP.entity.JournalEntry;
+import com.shaleenSB.journalAPP.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface UserRepo extends JpaRepository<User, Long> {
+    User findByUserName(String username);
+}
