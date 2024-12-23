@@ -1,0 +1,47 @@
+  package com.shaleenSB.journalAPP.controller;
+
+import com.shaleenSB.journalAPP.entity.JournalEntry;
+import com.shaleenSB.journalAPP.entity.User;
+import com.shaleenSB.journalAPP.service.JournalEntryService;
+import com.shaleenSB.journalAPP.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+  @RestController
+@RequestMapping("/user")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
+      public List<User> getAllUsers() {
+        return userService.getAll();
+    }
+
+      @PostMapping("/create")
+      public ResponseEntity<String> createUser(@RequestBody User user) {
+          userService.saveUser(user.getUserName(), user.getPassword());
+          return ResponseEntity.ok("User created successfully!");
+      }
+
+
+      @PutMapping("/{username}")
+      public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String userName) {
+        User userInDb = userService.findByUserName(userName);
+        if(userInDb != null){
+            userInDb.setUserName(user.getUserName());
+            userInDb.setPassword(user.getPassword());
+            userService.saveEntry(userInDb);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+}
