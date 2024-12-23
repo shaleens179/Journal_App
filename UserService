@@ -1,0 +1,48 @@
+package com.shaleenSB.journalAPP.service;
+
+import com.shaleenSB.journalAPP.entity.JournalEntry;
+import com.shaleenSB.journalAPP.entity.User;
+import com.shaleenSB.journalAPP.repo.JournalRepo;
+import com.shaleenSB.journalAPP.repo.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
+
+@Component
+public class UserService {
+
+    @Autowired
+    private UserRepo userRepository;
+
+
+    public void saveEntry(User journalEntry){
+        userRepository.save(journalEntry);
+    }
+
+    public List<User> getAll(){
+        return userRepository.findAll();
+    }
+
+    public Optional<User> findById(long id){
+        return userRepository.findById(id);
+    }
+
+     public void deleteById(long id){
+        userRepository.deleteById(id);
+     }
+
+     public User findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+     }
+
+    public User saveUser(String username, String password) {
+        User user = new User(username, password);
+        user.setUserName(username);
+        user.setPassword(password);
+        return userRepository.save(user); // Save the user to the database
+    }
+}
+
+
