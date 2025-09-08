@@ -44,6 +44,8 @@ public class JournalEntryControllerV2 {
         }
     }
 
+
+
     @GetMapping("id/{myId}")
     public ResponseEntity<?> getJournalEntryById(@PathVariable ObjectId myId){
         Optional<JournalEntry> journalEntry = journalEntryService.findById(myId);
