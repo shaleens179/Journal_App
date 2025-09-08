@@ -21,6 +21,17 @@ public class JournalEntry {
 
     private LocalDateTime date;
 
+    public JournalEntry(String title, String content) {
+        this.title = title;
+        this.content = content;
+        this.date = LocalDateTime.now();  // Automatically set creation date
+    }
+
+    // Helper to get string ID for frontend
+    public String getIdString() {
+        return id != null ? id.toHexString() : null;
+    }
+
 //    public ObjectId getId(){
 //        return id;
 //    }

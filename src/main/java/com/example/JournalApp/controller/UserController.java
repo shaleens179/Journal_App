@@ -26,10 +26,22 @@ public class UserController {
         return userService.getAll();
     }
 
-    @PostMapping
-    public void createUser(@RequestBody User user){
+//    @PostMapping
+//    public void createUser(@RequestBody User user){
+//        userService.saveEntry(user);
+//    }
+
+    // ✅ Register new user
+    @PostMapping("/register")
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        User existingUser = userService.findByUserName(user.getUserName());
+        if (existingUser != null) {
+            return new ResponseEntity<>("Username already exists!", HttpStatus.BAD_REQUEST);
+        }
         userService.saveEntry(user);
+        return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
     }
+
 
     @PutMapping("/{userName}")
     public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable String userName){
@@ -41,4 +53,14 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User loginRequest) {
+        User userInDb = userService.findByUserName(loginRequest.getUserName());
+        if (userInDb != null && userInDb.getPassword().equals(loginRequest.getPassword())) {
+            return new ResponseEntity<>(userInDb, HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+    }
+
 }
